@@ -27,18 +27,15 @@ context:
   # the template uses that to ensure that qemu-system-x86_64 is executed.
   arch: arm64
   extra_options:
-  - -global
-  - virtio-blk-device.scsi=off
-  - -smp
-  - 4
-  - -device
-  - virtio-serial-device
-  - -device
-  - virtconsole,chardev=con
-  - -chardev
-  - vc,id=con
-  - -device
-  - virtio-blk-device,drive=disk
+  - -cpu cortex-a57
+  - -global virtio-blk-device.scsi=off
+  - -smp 2
+  - -device virtio-serial-device
+  - -device virtconsole,chardev=con
+  - -chardev vc,id=con
+  - -device virtio-blk-device,drive=disk
+  - -device virtio-net-pci,netdev=net
+  - -netdev user,id=net
   guestfs_interface: virtio
 metadata:
   # please change these fields when modifying this job for your own tests.
@@ -65,7 +62,7 @@ actions:
 # BOOT_BLOCK
 - boot:
     timeout:
-      minutes: 2
+      minutes: 15
     method: qemu
     media: tmpfs
     prompts: ["root@demo:"]
@@ -77,7 +74,7 @@ actions:
 
 - test:
     timeout:
-      minutes: 30
+      minutes: 45
     definitions:
     - repository: http://git.linaro.org/lava-team/lava-functional-tests.git
       from: git
