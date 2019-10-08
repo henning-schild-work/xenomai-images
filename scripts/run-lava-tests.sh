@@ -37,7 +37,7 @@ if [ -z "${TARGET}" ]; then
     echo "no target was given"
     exit -1
 fi
-artifact_url="${LAVA_ARTIFACTS_URL:-'http://localhost/artifacts'}"
+artifact_url="${LAVA_ARTIFACTS_URL:-http://localhost/artifacts}"
 
 # connect to lava master
 lavacli identities add --token ${LAVA_MASTER_TOKEN} --uri ${LAVA_MASTER_URI} --username ${LAVA_MASTER_ACCOUNT} default
