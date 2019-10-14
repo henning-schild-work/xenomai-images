@@ -18,6 +18,7 @@ SRC_URI += "file://${KERNEL_DEFCONFIG}"
 DEPENDS += "xenomai-kernel-source"
 KBUILD_DEPENDS += "xenomai-kernel-source"
 
+LINUX_COMMIT="${@bb.fetch2.get_srcrev(d).strip('AUTOINC+')}"
 dpkg_runbuild_prepend() {
 	case ${DISTRO_ARCH} in
 	armhf)
@@ -33,6 +34,8 @@ dpkg_runbuild_prepend() {
 		bberror "Unsupported architecture ${DISTRO_ARCH}"
 		exit 1
 	esac
+	bbplain $(printf "linux-xenomai-%s: Building revision %.20s\n" \
+			 ${PV} ${LINUX_COMMIT})
 
 	sudo chroot --userspec=$( id -u ):$( id -g ) ${BUILDCHROOT_DIR} \
 		/usr/src/xenomai-kernel-source/scripts/prepare-kernel.sh \
