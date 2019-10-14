@@ -13,7 +13,7 @@ job_name: QEMU pipeline, xenomai-images-qemu-arm64
 
 timeouts:
   job:
-    minutes: 15
+    minutes: 45
   action:
     minutes: 5
   connection:
@@ -74,7 +74,7 @@ actions:
 
 - test:
     timeout:
-      minutes: 45
+      minutes: 30
     definitions:
     - repository: http://git.linaro.org/lava-team/lava-functional-tests.git
       from: git

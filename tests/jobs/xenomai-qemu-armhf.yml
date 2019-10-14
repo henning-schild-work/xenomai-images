@@ -13,7 +13,7 @@ job_name: QEMU pipeline, xenomai-images-qemu-armhf
 
 timeouts:
   job:
-    minutes: 15
+    minutes: 45
   action:
     minutes: 5
   connection:
@@ -26,7 +26,7 @@ context:
   arch: arm
   cpu: cortex-a15
   extra_options:
-  - -smp 4
+  - -smp 2
   - -device virtio-serial-device
   - -device virtconsole,chardev=con
   - -chardev vc,id=con
@@ -35,7 +35,7 @@ context:
   guestfs_interface: none
 metadata:
   # please change these fields when modifying this job for your own tests.
-  docs-source: xenomai-qemu-armhf
+  docs-source: xenomai-qemuarmhf
   docs-filename: qemu-pipeline-xenomai-armhf
 
 # ACTION_BLOCK
