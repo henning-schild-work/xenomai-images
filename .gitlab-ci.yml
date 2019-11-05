@@ -90,7 +90,18 @@ build:board-hikey:
   script:
     - kas build kas.yml:board-hikey.yml:opt-lava-test.yml${BUILD_OPTIONS}
     - scripts/deploy_for_testing.sh hikey
-# hikey is currently not part of the testlab
+
+lava-test:board-hikey:
+  <<: *lava-ssh-key
+  stage: lava-test
+  script:
+    - scripts/install-lavacli.sh
+    - scripts/run-lava-tests.sh hikey
+  needs: [ "build:board-hikey" ]
+  only:
+    variables:
+      - $LAVA_SSH_USER
+
 
 build:board-beaglebone:
   <<: *lava-ssh-key
