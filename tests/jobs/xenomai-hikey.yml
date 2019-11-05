@@ -1,0 +1,72 @@
+#
+# Xenomai Real-Time System
+#
+# Copyright (c) Siemens AG, 2019
+#
+# Authors:
+#  Quirin Gylstorff <quirin.gylstorff@siemens.com>
+#
+# SPDX-License-Identifier: MIT
+#
+job_name: xenomai-test-suite
+device_type: hikey
+
+timeouts:
+  job:
+    minutes: 30
+  action:
+    minutes: 20
+  connection:
+    minutes: 2
+priority: medium
+visibility: public
+
+metadata:
+  docs-source: xenomai-hikey
+  docs-filename: pipeline-xenomai-hikey
+# ACTION_BLOCK
+actions:
+- deploy:
+    timeout:
+      minutes: 30
+    to: tftp
+    kernel:
+      url: ${DEPLOY_URL}/demo-image-xenomai-demo-hikey-vmlinuz
+      type: image
+    dtb:
+      url: ${DEPLOY_URL}/hi6220-hikey.dtb
+    nfsrootfs:
+      url: ${DEPLOY_URL}/demo-image-xenomai-demo-hikey.tar.gz
+      compression: gz
+#  BOOT_BLOCK
+- boot:
+    timeout:
+      minutes: 5
+    method: u-boot
+    commands: nfs
+    prompts: ["root@demo:"]
+    auto_login:
+      login_prompt: 'demo login:'
+      username: root
+      password_prompt: 'Password:'
+      password: root
+
+- test:
+    timeout:
+      minutes: 30
+    definitions:
+    - repository: http://git.linaro.org/lava-team/lava-functional-tests.git
+      from: git
+      path: lava-test-shell/smoke-tests-basic.yaml
+      name: smoke-tests
+    - repository:
+        metadata:
+          format: Lava-Test Test Definition 1.0
+          name: xenomai-test-suite
+          description: "runs the xenomai test suite"
+        run:
+          steps:
+            - lava-test-case xenomai-test --shell xeno-test -k -l \"dohell -m /tmp 300\" -p 1000
+      from: inline
+      path: inline/xenomai-test-suite.yaml
+      name: xenomai-test-suite
