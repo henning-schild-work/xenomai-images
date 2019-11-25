@@ -19,6 +19,7 @@ fi
 LAVA_SSH_DESTINATION="${LAVA_SSH_USER}@${LAVA_SSH_HOST}"
 # open connection for ssh port forwarding
 ssh -N ${LAVA_SSH_PORT} -o 'LocalForward localhost:'${LAVA_MASTER_PORT}' localhost:80' ${LAVA_SSH_DESTINATION} &
+SSH_PID=$!
 # wait for connection
 INTERVAL=1
 TIMEOUT=60
@@ -51,6 +52,7 @@ lavacli jobs logs ${test_id}
 lavacli results ${test_id}
 # change return code to generate a error in gitlab-ci if a test is failed
 number_of_fails=$(lavacli results ${test_id} | grep fail | wc -l)
+kill ${SSH_PID}
 if [ "${number_of_fails}" -gt "0" ]; then
     exit 1
 fi
