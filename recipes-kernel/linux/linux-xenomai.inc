@@ -37,7 +37,9 @@ dpkg_runbuild_prepend() {
 	bbplain $(printf "linux-xenomai-%s: Building revision %.20s\n" \
 			 ${PV} ${LINUX_COMMIT})
 
-	sudo chroot --userspec=$( id -u ):$( id -g ) ${BUILDCHROOT_DIR} \
-		/usr/src/xenomai-kernel-source/scripts/prepare-kernel.sh \
-			--linux=${PP}/${PPS} --arch=$ARCH
+	${BUILDCHROOT_DIR}/usr/src/xenomai-kernel-source/scripts/prepare-kernel.sh \
+		--linux=${BUILDCHROOT_DIR}/${PP}/${PPS} --arch=$ARCH \
+		--outpatch=${WORKDIR}/xenomai-kernel.patch
+	patch -d ${BUILDCHROOT_DIR}/${PP}/${PPS} \
+		-p1 -i ${WORKDIR}/xenomai-kernel.patch
 }
