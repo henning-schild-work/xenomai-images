@@ -18,8 +18,7 @@ PV_amd64 = "4.14.134+"
 SRC_URI_append_arm64 = " git://gitlab.denx.de/Xenomai/ipipe-arm64.git;protocol=https;nobranch=1;tag=ipipe-core-4.14.78-arm64-2"
 PV_arm64 = "4.14.78+"
 
-SRC_URI_append_armhf = " git://gitlab.denx.de/Xenomai/ipipe-arm.git;protocol=https;branch=stable/4.14.96-arm"
-SRCREV_armhf = "723539db0d5a1c995c9bb5524abe311a97b33e43"
-PV_armhf = "4.14.96+"
+SRC_URI_append_armhf = " git://gitlab.denx.de/Xenomai/ipipe-arm.git;protocol=https;nobranch=1;tag=ipipe-core-4.14.110-arm-7"
+PV_armhf = "4.14.110+"
 
 S = "${WORKDIR}/git"
