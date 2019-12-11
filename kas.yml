@@ -41,3 +41,6 @@ local_conf_header:
     ISAR_CROSS_COMPILE = "1"
   xenomai-version: |
     PREFERRED_VERSION_xenomai ?= "stable"
+  github-mirror: |
+    PREMIRRORS_prepend = " \
+        git://gitlab.denx.de/Xenomai/ git://github.com/xenomai-ci/ \n"
