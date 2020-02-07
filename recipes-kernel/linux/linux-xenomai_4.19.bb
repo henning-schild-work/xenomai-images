@@ -12,13 +12,12 @@
 require recipes-kernel/linux/linux-xenomai.inc
 
 SRC_URI_append_amd64 = " git://gitlab.denx.de/Xenomai/ipipe-x86.git;protocol=https;nobranch=1"
-SRCREV_amd64 ?= "f83bda3e0785ae2e0ea8ad530bc903d2b420c2c7"
-PV_amd64 ?= "4.19.66+"
+SRCREV_amd64 ?= "ipipe-core-4.19.94-cip18-x86-10"
+PV_amd64 ?= "4.19.94+"
 
 SRC_URI_append_arm64 = " git://gitlab.denx.de/Xenomai/ipipe-arm64.git;protocol=https;nobranch=1"
 SRCREV_arm64 ?= "ipipe-core-4.19.55-arm64-4"
 PV_arm64 ?= "4.19.55+"
-
 
 SRC_URI_append_armhf = " git://gitlab.denx.de/Xenomai/ipipe-arm.git;protocol=https;nobranch=1"
 SRCREV_armhf ?= "ipipe-core-4.19.55-arm-5"
