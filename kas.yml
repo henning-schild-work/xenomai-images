@@ -1,7 +1,7 @@
 #
 # Xenomai Real-Time System
 #
-# Copyright (c) Siemens AG, 2018
+# Copyright (c) Siemens AG, 2018-2020
 #
 # Authors:
 #  Jan Kiszka <jan.kiszka@siemens.com>
@@ -35,8 +35,6 @@ local_conf_header:
     CONF_VERSION = "1"
   cross: |
     ISAR_CROSS_COMPILE = "1"
-  xenomai-version: |
-    PREFERRED_VERSION_xenomai ?= "stable"
   github-mirror: |
     PREMIRRORS_prepend = " \
         git://gitlab.denx.de/Xenomai/ git://github.com/xenomai-ci/ \n"
