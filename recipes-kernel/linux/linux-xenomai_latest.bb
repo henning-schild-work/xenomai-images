@@ -27,7 +27,7 @@ GIT_BRANCH_armhf = "${@'ipipe-4.4.y-cip' if is_xeno_3_0(d) else 'ipipe/master'}"
 GIT_REPO_arm64 = "ipipe-arm64.git"
 GIT_BRANCH_arm64 = "ipipe/master"
 
-SRC_URI += "git://gitlab.denx.de/Xenomai/${GIT_REPO};protocol=https;branch=${GIT_BRANCH}"
+SRC_URI += "git://github.com/xenomai-ci/${GIT_REPO};protocol=https;branch=${GIT_BRANCH}"
 SRCREV = "${AUTOREV}"
 
 S = "${WORKDIR}/git"

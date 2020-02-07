@@ -12,6 +12,6 @@
 require xenomai.inc
 
 SRC_URI = " \
-    git://gitlab.denx.de/Xenomai/xenomai.git;protocol=https;branch=master;tag=v${PV}"
+    git://github.com/xenomai-ci/xenomai.git;protocol=https;branch=master;tag=v${PV}"
 
 S = "${WORKDIR}/git"
