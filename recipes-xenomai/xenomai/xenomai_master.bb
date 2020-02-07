@@ -1,10 +1,11 @@
 #
 # Xenomai Real-Time System
 #
-# Copyright (c) Siemens AG, 2019
+# Copyright (c) Siemens AG, 2018-2020
 #
 # Authors:
 #  Quirin Gylstorff <quirin.gylstorff@siemens.com>
+#  Jan Kiszka <jan.kiszka@siemens.com>
 #
 # SPDX-License-Identifier: MIT
 #
@@ -12,8 +13,7 @@
 require xenomai.inc
 
 SRC_URI = " \
-    git://gitlab.denx.de/Xenomai/xenomai.git;protocol=https;branch=master"
+    git://gitlab.denx.de/Xenomai/xenomai.git;protocol=https;branch=${PV}"
 SRCREV = "${AUTOREV}"
-PV = "master"
-S = "${WORKDIR}/git"
 
+S = "${WORKDIR}/git"
