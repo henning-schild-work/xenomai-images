@@ -20,13 +20,9 @@ repos:
 
   isar:
     url: https://github.com/ilbers/isar.git
-    refspec: a5d575a15285b7f66efbf3e2409a7f65d25ff15e
+    refspec: 18b3e9a15d1f054f5d1e697c66a8f1f9befc0537
     layers:
       meta:
-    patches:
-      latest-kernel:
-        repo: xenomai
-        path: patches/0001-recipes-kernel-linux-build-kernel-Allow-kernel-build.patch
 
 bblayers_conf_header:
   standard: |

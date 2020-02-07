@@ -12,9 +12,6 @@
 header:
   version: 8
 
-# lava uses nfs to deploy the image. For this we need a tarball instead of
-# full image
-
 local_conf_header:
   linux-xenomai-latest: |
-    PREFERRED_VERSION_linux-xenomai = "latest%"
+    PREFERRED_VERSION_linux-xenomai = "9999-latest"
