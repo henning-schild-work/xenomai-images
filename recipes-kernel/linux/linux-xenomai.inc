@@ -19,6 +19,7 @@ DEPENDS += "xenomai-kernel-source"
 KBUILD_DEPENDS += "xenomai-kernel-source"
 
 LINUX_COMMIT="${@bb.fetch2.get_srcrev(d).strip('AUTOINC+')}"
+
 dpkg_runbuild_prepend() {
 	case ${DISTRO_ARCH} in
 	armhf)
