@@ -34,7 +34,7 @@ dpkg_runbuild_prepend() {
 	arm64)
 		ARCH=arm64
 		;;
-	amd64)
+	amd64|i386)
 		ARCH=x86
 		;;
 	*)
