@@ -23,6 +23,10 @@ repos:
     refspec: 18b3e9a15d1f054f5d1e697c66a8f1f9befc0537
     layers:
       meta:
+    patches:
+      weak-kernel-config:
+        path: patches/0001-recipes-kernel-linux-Weak-KERNEL_DEFCONFIG-to-allow-.patch
+        repo: xenomai
 
 bblayers_conf_header:
   standard: |
