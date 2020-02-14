@@ -11,37 +11,41 @@
 # SPDX-License-Identifier: MIT
 #
 set -e
-TARGET="$1"
+target="$1"
 
-if [ -z "${TARGET}" ]; then
+if [ -z "${target}" ]; then
     exit -1
 fi
-IMAGES_DIR=build/tmp/deploy/images
+images_dir=build/tmp/deploy/images
 
 if [ -z "${LAVA_SSH_USER}" ] || [ -z "${LAVA_SSH_HOST}" ]  || [ -z "${LAVA_SSH_PORT}" ]; then
     echo "Lava environment not available or incomplete - do not deploy"
     exit 0
 fi
 
-LAVA_SSH_DESTINATION="${LAVA_SSH_USER}@${LAVA_SSH_HOST}"
+lava_ssh_destination="${LAVA_SSH_USER}@${LAVA_SSH_HOST}"
 
-LAVA_DEPLOY_DIR=${LAVA_DEPLOY_DIR:-"/var/lib/lava/artifacts"}
-DEPLOY_DIR="${LAVA_DEPLOY_DIR}/${CI_PIPELINE_ID}"
-ssh -p ${LAVA_SSH_PORT} ${LAVA_SSH_DESTINATION} 'install -d -m 755 "'${DEPLOY_DIR}'"'
-#KERNEL
-scp -P ${LAVA_SSH_PORT} ${IMAGES_DIR}/${TARGET}/demo-image-xenomai-demo-${TARGET}-vmlinuz \
-    ${LAVA_SSH_DESTINATION}:${DEPLOY_DIR}
-# INITRD
-scp -P ${LAVA_SSH_PORT} ${IMAGES_DIR}/${TARGET}/demo-image-xenomai-demo-${TARGET}-initrd.img \
-    ${LAVA_SSH_DESTINATION}:${DEPLOY_DIR}
-# ROOTFS
-if [ -n ${IMAGES_DIR}/${TARGET}/demo-image-xenomai-demo-${TARGET}.*.gz  ]; then
-    gzip ${IMAGES_DIR}/${TARGET}/demo-image-xenomai-demo-${TARGET}.*
+isar_base_name="${ISAR_IMAGE}-${ISAR_DISTRIBUTION}-${target}"
+lava_deploy_dir="${LAVA_DEPLOY_DIR:-/var/lib/lava/artifacts}"
+deploy_dir="${lava_deploy_dir}/${CI_PIPELINE_ID}"
+lava_identity="-i ${LAVA_SSH_KEY_PATH:-~/.ssh/lava_id_rsa}"
+if [ -n "${CI_PIPELINE_ID}" ]; then
+    ssh -p ${LAVA_SSH_PORT} ${lava_identity} ${lava_ssh_destination} 'install -d -m 755 "'${deploy_dir}'"'
 fi
-scp -P ${LAVA_SSH_PORT} ${IMAGES_DIR}/${TARGET}/demo-image-xenomai-demo-${TARGET}.* \
-    ${LAVA_SSH_DESTINATION}:${DEPLOY_DIR}
+#KERNEL
+scp -P ${LAVA_SSH_PORT} ${lava_identity} ${images_dir}/${target}/${isar_base_name}-vmlinuz \
+    ${lava_ssh_destination}:${deploy_dir}
+# INITRD
+scp -P ${LAVA_SSH_PORT} ${lava_identity} ${images_dir}/${target}/${isar_base_name}-initrd.img \
+    ${lava_ssh_destination}:${deploy_dir}
+# ROOTFS
+if [ -n ${images_dir}/${target}/${isar_base_name}.*.gz  ]; then
+    gzip ${images_dir}/${target}/${isar_base_name}.*
+fi
+scp -P ${LAVA_SSH_PORT} ${lava_identity} ${images_dir}/${target}/${isar_base_name}.* \
+    ${lava_ssh_destination}:${deploy_dir}
 # DTB
-DTB="${IMAGES_DIR}/${TARGET}/*.dtb"
-if [ -e ${DTB} ]; then
-    scp -P ${LAVA_SSH_PORT} ${DTB} ${LAVA_SSH_DESTINATION}:${DEPLOY_DIR}
+dtb="${images_dir}/${target}/*.dtb"
+if [ -e ${dtb} ]; then
+    scp -P ${LAVA_SSH_PORT} ${lava_identity} ${dtb} ${lava_ssh_destination}:${deploy_dir}
 fi

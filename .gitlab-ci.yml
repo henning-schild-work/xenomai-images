@@ -20,6 +20,9 @@ variables:
   no_proxy: "$NO_PROXY"
   XENOMAI_BUILD_OPTION: ":opt-xenomai-next.yml"
   LINUX_BUILD_OPTION: ":opt-linux-latest.yml"
+  ISAR_IMAGE: demo-image
+  ISAR_DISTRIBUTION: xenomai-demo
+
 default:
   image: kasproject/kas-isar:latest
 
@@ -28,8 +31,8 @@ default:
 .add-lava-ssh-config:
   before_script:
     - mkdir -p -m=700 ~/.ssh
-    - echo "$LAVA_SSH_UPLOAD_KEY" | tr -d '\r' > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
     - echo "ProxyCommand socat - PROXY:$(echo $https_proxy | sed 's|.*://\([^:]*\).*|\1|'):%h:%p,proxyport=$(echo $https_proxy | sed 's|.*:\([0-9]*\)$|\1|')" >> ~/.ssh/config && chmod 600 ~/.ssh/config
+    - echo "$LAVA_SSH_UPLOAD_KEY" | tr -d '\r' > ~/.ssh/lava_id_rsa && chmod 600 ~/.ssh/lava_id_rsa
     - echo "$LAVA_SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
 
 .build:
