@@ -11,8 +11,7 @@
 
 inherit dpkg
 
-PROVIDES += "xenomai-kernel-source xenomai-runtime xenomai-runtime-dbgsym libxenomai1-dbgsym"
-
+PROVIDES += "xenomai-kernel-source xenomai-runtime xenomai-runtime-dbgsym libxenomai1 libxenomai-dev libxenomai1-dbgsym"
 # use bitbake get_srcrev to get the current commit id
 COMMIT="${@bb.fetch2.get_srcrev(d).strip('AUTOINC+')}"
 do_prepare_build() {
