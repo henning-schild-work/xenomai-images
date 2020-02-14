@@ -1,7 +1,7 @@
 #
 # Xenomai Real-Time System
 #
-# Copyright (c) Siemens AG, 2020
+# Copyright (c) Siemens AG, 2019 - 2020
 #
 # Authors:
 #  Quirin Gylstorff <quirin.gylstorff@siemens.com>
@@ -121,3 +121,33 @@ lava-test:board-x86-64-efi:
   extends: .test
   variables:
     TARGET: x86-64
+
+build:board-beaglebone:xenomai-3.0.x:
+  extends: .build
+  variables:
+    TARGET: beagle-bone-black
+    XENOMAI_BUILD_OPTION: ":opt-xenomai-3.0.x.yml"
+    BUILD_OPTIONS: ":opt-lava-test.yml"
+    DEPLOY_DIR_EXTENSION: "xenomai-3.0.x"
+
+lava-test:board-beaglebone:xenomai-3.0.x:
+  needs: [ "build:board-beaglebone:xenomai-3.0.x" ]
+  extends: .test
+  variables:
+    TARGET: beaglebone
+    DEPLOY_DIR_EXTENSION: "xenomai-3.0.x"
+
+build:board-x86-64-efi:xenomai-3.0.x:
+  extends: .build
+  variables:
+    TARGET: x86-64-efi
+    XENOMAI_BUILD_OPTION: ":opt-xenomai-3.0.x.yml"
+    BUILD_OPTIONS: ":opt-lava-test.yml"
+    DEPLOY_DIR_EXTENSION: "xenomai-3.0.x"
+
+lava-test:board-x86-64-efi:xenomai-3.0.x:
+  needs: [ "build:board-x86-64-efi:xenomai-3.0.x" ]
+  extends: .test
+  variables:
+    TARGET: x86-64
+    DEPLOY_DIR_EXTENSION: "xenomai-3.0.x"
