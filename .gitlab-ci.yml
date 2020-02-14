@@ -149,5 +149,5 @@ lava-test:board-x86-64-efi:xenomai-3.0.x:
   needs: [ "build:board-x86-64-efi:xenomai-3.0.x" ]
   extends: .test
   variables:
-    TARGET: x86-64
+    TARGET: ipc227e
     DEPLOY_DIR_EXTENSION: "xenomai-3.0.x"

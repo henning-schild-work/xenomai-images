@@ -49,6 +49,7 @@ tmp_dir=$(mktemp -d)
 template=${tmp_dir}/job_${TARGET}_${CI_PIPELINE_ID}.yml
 cp ${job_template_path}-${TARGET}.yml ${template}
 sed -i "s|\${TARGET}|${TARGET}|g" $template
+sed -i "s|\${BUILD_ARCH}|${BUILD_ARCH}|g" $template
 sed -i "s|\${DEPLOY_URL}|${DEPLOY_URL}|g" $template
 sed -i "s|\${ISAR_IMAGE}|${ISAR_IMAGE}|g" $template
 sed -i "s|\${ISAR_DISTRIBUTION}|${ISAR_DISTRIBUTION}|g" $template
