@@ -12,6 +12,8 @@
 
 require xenomai.inc
 
+CHANGELOG_V = "3.0.x-head"
+
 SRC_URI = " \
     git://github.com/xenomai-ci/xenomai.git;protocol=https;branch=stable/v3.0.x"
 SRCREV = "${AUTOREV}"

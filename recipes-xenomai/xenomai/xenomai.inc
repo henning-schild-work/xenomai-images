@@ -23,11 +23,19 @@ def get_commit(d):
 COMMIT="${@get_commit(d)}"
 
 do_prepare_build() {
-	# The xenomai-kernel-source package is supposed to be generic, but we
-	# build it per architecture in Isar, and those packages happen to be
-	# different in some file so far. Make sure they are pushed into the
-	# target architecture to avoid conflicts.
-	sudo sed -i 's/Architecture: all/Architecture: any/' ${S}/debian/control
+    # The xenomai-kernel-source package is supposed to be generic, but we
+    # build it per architecture in Isar, and those packages happen to be
+    # different in some file so far. Make sure they are pushed into the
+    # target architecture to avoid conflicts.
+    sudo sed -i 's/Architecture: all/Architecture: any/' ${S}/debian/control
+
+    # Xenomai currently does not maintain its changelog, plus we want the
+    # actual package version in there.
+    deb_add_changelog
+
+    # Remove upstream's "3.0 (native)" declaration so that we can define the
+    # package version more freely.
+    rm -f ${S}/debian/source/format
 }
 
 dpkg_runbuild_prepend() {
