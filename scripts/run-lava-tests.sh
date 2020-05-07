@@ -42,8 +42,12 @@ lava_master_uri=http://localhost:${lava_master_port}
 # connect to lava master
 lavacli identities add --token ${LAVA_MASTER_TOKEN} --uri ${lava_master_uri} --username ${LAVA_MASTER_ACCOUNT} default
 #generate lava job description from template
-artifact_url="${LAVA_ARTIFACTS_URL:-http://localhost/artifacts}"
-DEPLOY_URL="${artifact_url}/${CI_PIPELINE_ID}/${DEPLOY_DIR_EXTENSION}"
+if [ -n "${USE_GITLAB_ARTIFACTS}" ]; then
+    DEPLOY_URL="${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/jobs/${BUILD_JOB_ID}/artifacts/build/tmp/deploy/images/${TARGET}"
+else
+    artifact_url="${LAVA_ARTIFACTS_URL:-http://localhost/artifacts}"
+    DEPLOY_URL="${artifact_url}/${CI_PIPELINE_ID}/${DEPLOY_DIR_EXTENSION}"
+fi
 job_template_path="${JOB_TEMPLATE_PATH:-tests/jobs/xenomai}"
 tmp_dir=$(mktemp -d)
 template=${tmp_dir}/job_${TARGET}_${CI_PIPELINE_ID}.yml

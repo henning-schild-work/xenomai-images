@@ -31,12 +31,12 @@ actions:
       minutes: 30
     to: tftp
     kernel:
-      url: ${DEPLOY_URL}/demo-image-xenomai-demo-hikey-vmlinuz
+      url: ${DEPLOY_URL}/${ISAR_IMAGE}-${ISAR_DISTRIBUTION}-${TARGET}-vmlinuz
       type: image
     dtb:
       url: ${DEPLOY_URL}/hi6220-hikey.dtb
     nfsrootfs:
-      url: ${DEPLOY_URL}/demo-image-xenomai-demo-hikey.tar.gz
+      url: ${DEPLOY_URL}/${ISAR_IMAGE}-${ISAR_DISTRIBUTION}-${TARGET}.tar.gz
       compression: gz
 #  BOOT_BLOCK
 - boot:

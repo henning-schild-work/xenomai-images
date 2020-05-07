@@ -32,12 +32,12 @@ actions:
       minutes: 5
     to: tftp
     kernel:
-      url: ${DEPLOY_URL}/demo-image-xenomai-demo-beagle-bone-black-vmlinuz
+      url: ${DEPLOY_URL}/${ISAR_IMAGE}-${ISAR_DISTRIBUTION}-${TARGET}-vmlinuz
       type: zimage
     dtb:
       url: ${DEPLOY_URL}/am335x-boneblack.dtb
     nfsrootfs:
-      url: ${DEPLOY_URL}/demo-image-xenomai-demo-beagle-bone-black.tar.gz
+      url: ${DEPLOY_URL}/${ISAR_IMAGE}-${ISAR_DISTRIBUTION}-${TARGET}.tar.gz
       compression: gz
 # BOOT_BLOCK
 - boot:

@@ -14,7 +14,7 @@ set -e
 target="$1"
 
 if [ -z "${target}" ]; then
-    exit -1
+    exit 1
 fi
 images_dir=build/tmp/deploy/images
 
@@ -39,7 +39,7 @@ scp -P ${LAVA_SSH_PORT} ${lava_identity} ${images_dir}/${target}/${isar_base_nam
 scp -P ${LAVA_SSH_PORT} ${lava_identity} ${images_dir}/${target}/${isar_base_name}-initrd.img \
     ${lava_ssh_destination}:${deploy_dir}
 # ROOTFS
-if [ -n ${images_dir}/${target}/${isar_base_name}.*.gz  ]; then
+if [ ! -e ${images_dir}/${target}/${isar_base_name}.*.gz  ]; then
     gzip ${images_dir}/${target}/${isar_base_name}.*
 fi
 scp -P ${LAVA_SSH_PORT} ${lava_identity} ${images_dir}/${target}/${isar_base_name}.* \

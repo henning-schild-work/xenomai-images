@@ -13,9 +13,10 @@
 # of lavacli. The apt version from stretch-backports cannot communicate
 # with the lava master on Debian 10.
 os_version_id=$(sed -nr 's/VERSION_ID="([0-9]+)"/\1/p' /etc/os-release)
+sudo apt-get update
+sudo apt-get install -y jq
 if [ "${os_version_id}" -ge "10" ]; then
-    sudo apt update
-    sudo apt install -y lavacli
+    sudo apt-get install -y lavacli
 else
     sudo pip3 install wheel
     sudo pip3 install lavacli

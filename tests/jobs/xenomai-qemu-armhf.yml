@@ -47,13 +47,13 @@ actions:
     images:
       kernel:
         image_arg: -kernel {kernel} -append "root=/dev/vdb"
-        url: ${DEPLOY_URL}/demo-image-xenomai-demo-qemu-armhf-vmlinuz
+        url: ${DEPLOY_URL}/${ISAR_IMAGE}-${ISAR_DISTRIBUTION}-${TARGET}-vmlinuz
       initrd:
         image_arg: -initrd {initrd}
-        url: ${DEPLOY_URL}/demo-image-xenomai-demo-qemu-armhf-initrd.img
+        url: ${DEPLOY_URL}/${ISAR_IMAGE}-${ISAR_DISTRIBUTION}-${TARGET}-initrd.img
       rootfs:
         image_arg: -drive file={rootfs},discard=unmap,if=none,id=disk,format=raw
-        url: ${DEPLOY_URL}/demo-image-xenomai-demo-qemu-armhf.ext4.img.gz
+        url: ${DEPLOY_URL}/${ISAR_IMAGE}-${ISAR_DISTRIBUTION}-${TARGET}.ext4.img.gz
         compression: gz
 # BOOT_BLOCK
 - boot:

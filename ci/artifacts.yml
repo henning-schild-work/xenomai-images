@@ -1,0 +1,24 @@
+#
+# Xenomai Real-Time System
+#
+# Copyright (c) Siemens AG, 2019 - 2020
+#
+# Authors:
+#  Quirin Gylstorff <quirin.gylstorff@siemens.com>
+#
+# SPDX-License-Identifier: MIT
+#
+.build:
+  extends: .add-lava-ssh-config
+  stage: build
+  script:
+    - kas build kas.yml:board-${TARGET}.yml${XENOMAI_BUILD_OPTION}${LINUX_BUILD_OPTION}${BUILD_OPTIONS}
+  artifacts:
+    paths:
+    - build/tmp/deploy/images/${TARGET}/
+    expire_in: 1 week
+  only:
+    variables:
+      - $USE_GITLAB_ARTIFACTS
+include:
+  - local: '/ci/gitlab-ci-base.yml'
