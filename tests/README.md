@@ -117,6 +117,7 @@ The following variables are used and set by the ci system:
   - `LAVA_ARTIFACTS_URL` : optional variable where to get the artifacts for testing
   - `LAVA_DEPLOY_DIR`: Directory to deploy the Artifacts in a build. Default /var/lib/lava/artifacts
   - `LAVA_MASTER_PORT`: PORT to access the LAVA Master
+  - `LAVA_MASTER_URL`: URL to the LAVA Master
 
 - General build settings
   - `BUILD_OPTIONS` : optional parameter. Used for triggers. Overwrite to build the newest ipipe together with xenomai or other combinations.

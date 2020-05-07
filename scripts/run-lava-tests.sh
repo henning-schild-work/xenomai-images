@@ -37,7 +37,7 @@ do
     sleep ${interval}
     timeout=$(expr ${timeout} - ${interval})
 done
-lava_master_uri=http://localhost:${lava_master_port}
+lava_master_uri=${LAVA_MASTER_URL:-http://localhost}:${lava_master_port}
 
 # connect to lava master
 lavacli identities add --token ${LAVA_MASTER_TOKEN} --uri ${lava_master_uri} --username ${LAVA_MASTER_ACCOUNT} default
