@@ -1,0 +1,24 @@
+#
+# Xenomai Real-Time System
+#
+# Copyright (c) Siemens AG, 2018
+#
+# Authors:
+#  Quirin Gylstorff <quirin.gylstorff@siemens.com>
+#
+# SPDX-License-Identifier: MIT
+#
+
+header:
+  version: 8
+
+repos:
+  isar:
+    patches:
+      01-compress-ext4:
+        path: isar-patches/0001-classes-ext4.img-Compress.patch
+        repo: xenomai
+
+local_conf_header:
+  compress: |
+    COMPRESS = "gz"

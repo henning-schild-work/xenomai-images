@@ -1,0 +1,31 @@
+From 915eec01cf660b160b1eab551c60fba4aac13b4b Mon Sep 17 00:00:00 2001
+From: Quirin Gylstorff <quirin.gylstorff@siemens.com>
+Date: Fri, 17 Apr 2020 11:32:39 +0200
+Subject: [PATCH] classes/ext4.img: Compress
+
+change owner and add compress option
+
+Signed-off-by: Quirin Gylstorff <quirin.gylstorff@siemens.com>
+---
+ meta/classes/ext4-img.bbclass | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/meta/classes/ext4-img.bbclass b/meta/classes/ext4-img.bbclass
+index 334dc64..dc091d9 100644
+--- a/meta/classes/ext4-img.bbclass
++++ b/meta/classes/ext4-img.bbclass
+@@ -17,6 +17,11 @@ do_ext4_image() {
+ 
+     sudo chroot ${BUILDCHROOT_DIR} /sbin/mke2fs ${MKE2FS_ARGS} \
+                 -F -d '${PP_ROOTFS}' '${PP_DEPLOY}/${EXT4_IMAGE_FILE}'
++    sudo chown $(id -u):$(id -g) ${DEPLOY_DIR_IMAGE}/${EXT4_IMAGE_FILE}
++
++    if [ "${COMPRESS}" = "gz" ]; then
++        gzip ${DEPLOY_DIR_IMAGE}/${EXT4_IMAGE_FILE}
++    fi
+ }
+ 
+ addtask ext4_image before do_image after do_image_tools
+-- 
+2.20.1
+

@@ -53,6 +53,7 @@ build:board-qemu-amd64:
   extends: .build
   variables:
     TARGET: qemu-amd64
+    BUILD_OPTIONS: ":opt-ext4-gz.yml"
 
 lava-test:qemu-amd64:
   needs: [ "build:board-qemu-amd64" ]
@@ -65,6 +66,7 @@ build:board-qemu-armhf:
   extends: .build
   variables:
     TARGET: qemu-armhf
+    BUILD_OPTIONS: ":opt-ext4-gz.yml"
 
 lava-test:qemu-armhf:
   needs: [ "build:board-qemu-armhf" ]
@@ -76,6 +78,7 @@ build:board-qemu-arm64:
   extends: .build
   variables:
     TARGET: qemu-arm64
+    BUILD_OPTIONS: ":opt-ext4-gz.yml"
 
 lava-test:qemu-arm64:
   needs: [ "build:board-qemu-arm64" ]
